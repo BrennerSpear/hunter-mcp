@@ -1,0 +1,25 @@
+{
+  "name": "hunter-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for Hunter.io email finder and verifier",
+  "type": "module",
+  "main": "src/index.ts",
+  "bin": {
+    "hunter-mcp": "src/index.ts"
+  },
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "dotenv": "^17.2.3",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.10.2",
+    "tsx": "^4.0.0",
+    "typescript": "^5.7.2"
+  }
+}
