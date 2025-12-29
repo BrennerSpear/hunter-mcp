@@ -54,13 +54,16 @@ const server = new McpServer({
 	version: "1.0.0",
 })
 
-server.tool(
+server.registerTool(
 	"find_email_by_name",
-	"Find the most likely email address for a person at a company domain",
 	{
-		domain: z.string().describe("The company domain (e.g., 'stripe.com')"),
-		first_name: z.string().describe("The person's first name"),
-		last_name: z.string().describe("The person's last name"),
+		title: "Email Finder",
+		description: "Find the most likely email address for a person at a company domain",
+		inputSchema: {
+			domain: z.string().describe("The company domain (e.g., 'stripe.com')"),
+			first_name: z.string().describe("The person's first name"),
+			last_name: z.string().describe("The person's last name"),
+		},
 	},
 	async ({ domain, first_name, last_name }) => {
 		try {
@@ -76,12 +79,7 @@ server.tool(
 
 			if (!response.ok) {
 				return {
-					content: [
-						{
-							type: "text" as const,
-							text: `Error: ${JSON.stringify(json)}`,
-						},
-					],
+					content: [{ type: "text" as const, text: `Error: ${JSON.stringify(json)}` }],
 					isError: true,
 				}
 			}
@@ -98,23 +96,21 @@ server.tool(
 			}
 		} catch (error) {
 			return {
-				content: [
-					{
-						type: "text" as const,
-						text: `Error: ${error instanceof Error ? error.message : String(error)}`,
-					},
-				],
+				content: [{ type: "text" as const, text: `Error: ${error instanceof Error ? error.message : String(error)}` }],
 				isError: true,
 			}
 		}
 	},
 )
 
-server.tool(
+server.registerTool(
 	"verify_email",
-	"Verify if an email address is valid and deliverable",
 	{
-		email: z.string().email().describe("The email address to verify"),
+		title: "Email Verifier",
+		description: "Verify if an email address is valid and deliverable",
+		inputSchema: {
+			email: z.string().email().describe("The email address to verify"),
+		},
 	},
 	async ({ email }) => {
 		try {
@@ -128,12 +124,7 @@ server.tool(
 
 			if (!response.ok) {
 				return {
-					content: [
-						{
-							type: "text" as const,
-							text: `Error: ${JSON.stringify(json)}`,
-						},
-					],
+					content: [{ type: "text" as const, text: `Error: ${JSON.stringify(json)}` }],
 					isError: true,
 				}
 			}
@@ -150,12 +141,7 @@ server.tool(
 			}
 		} catch (error) {
 			return {
-				content: [
-					{
-						type: "text" as const,
-						text: `Error: ${error instanceof Error ? error.message : String(error)}`,
-					},
-				],
+				content: [{ type: "text" as const, text: `Error: ${error instanceof Error ? error.message : String(error)}` }],
 				isError: true,
 			}
 		}
