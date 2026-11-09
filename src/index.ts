@@ -1,20 +1,14 @@
 #!/usr/bin/env npx tsx
+
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js"
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
-import { config as loadEnv } from "dotenv"
-import os from "node:os"
-import path from "node:path"
 import { z } from "zod"
-
-// Load API key from ~/.claude/secrets/hunter/.env
-const envPath = path.join(os.homedir(), ".claude", "secrets", "hunter", ".env")
-loadEnv({ path: envPath })
 
 const apiKey = process.env.HUNTER_API_KEY || ""
 
 if (!apiKey) {
-	console.error(`Missing Hunter API key. Create ${envPath} with:`)
-	console.error("HUNTER_API_KEY=your_api_key")
+	console.error("Missing Hunter API key. Set this environment variable:")
+	console.error("  HUNTER_API_KEY")
 	process.exit(1)
 }
 
